@@ -62,16 +62,16 @@ type RpcRequestBuilder struct {
 	path       string
 	header     http.Header
 	httpMethod string
-	params     map[string]interface{}
+	json       interface{}
 }
 
-func (c *Client) Rpc(f string, params map[string]interface{}) *RpcRequestBuilder {
+func (c *Client) Rpc(f string, json interface{}) *RpcRequestBuilder {
 	return &RpcRequestBuilder{
 		client:     c,
 		path:       c.Transport.baseURL.String() + "rpc/" + f,
 		header:     http.Header{},
 		httpMethod: http.MethodPost,
-		params:     params,
+		json:       json,
 	}
 }
 
@@ -80,7 +80,7 @@ func (r *RpcRequestBuilder) Execute(result interface{}) error {
 }
 
 func (r *RpcRequestBuilder) ExecuteWithContext(ctx context.Context, result interface{}) error {
-	data, err := json.Marshal(r.params)
+	data, err := json.Marshal(r.json)
 	if err != nil {
 		return err
 	}

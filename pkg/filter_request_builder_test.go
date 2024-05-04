@@ -104,6 +104,6 @@ func TestFilterRequestBuilder_MultivaluedParam(t *testing.T) {
 	got := builder.params.Encode()
 
 	if want != got {
-		t.Errorf("expected http params.Encode() == %s, got %s", want, got)
+		t.Errorf("expected http json.Encode() == %s, got %s", want, got)
 	}
 }
